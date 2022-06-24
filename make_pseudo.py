@@ -68,7 +68,6 @@ def make_pseudo(model1,model2, data, im_data, im_info, gt_boxes, num_boxes, num_
 
     pred_boxes1 = bbox_transform_inv(boxes1, box_deltas1, 1)
     pred_boxes1 = clip_boxes(pred_boxes1, im_info.data, 1)
-    pred_boxes1 /= div_data
 
     scores1 = scores1.squeeze()
     pred_boxes1 = pred_boxes1.squeeze()
@@ -89,7 +88,6 @@ def make_pseudo(model1,model2, data, im_data, im_info, gt_boxes, num_boxes, num_
 
     pred_boxes2 = bbox_transform_inv(boxes2, box_deltas2, 1)
     pred_boxes2 = clip_boxes(pred_boxes2, im_info.data, 1)
-    pred_boxes2 /= div_data
 
     scores1 = scores1.squeeze()
     pred_boxes1 = pred_boxes1.squeeze()
@@ -144,12 +142,6 @@ def make_pseudo(model1,model2, data, im_data, im_info, gt_boxes, num_boxes, num_
             pseudo_gt = np.concatenate((pseudo_gt, zero_axis), axis=0)
 
     pseudo_gt = torch.from_numpy(pseudo_gt)
-    pseudo_gt[:, 0] = np.around(pseudo_gt[:, 0] * 600 / 720)
-    pseudo_gt[:, 2] = np.around(pseudo_gt[:, 2] * 1067 / 1280)
-    pseudo_gt[:, 1] = np.around(pseudo_gt[:, 1] * 600 / 720)
-    pseudo_gt[:, 3] = np.around(pseudo_gt[:, 3] * 1067 / 1280)
-
-    # input 720,1280 output 600,1067
     pseudo_gt = pseudo_gt.unsqueeze(0)
 
     # print(pseudo_gt)
