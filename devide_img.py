@@ -8,4 +8,4 @@ for idx in item:
     idx = idx.strip()
     src = os.path.join("/media/ssd1/cityscape/VOC2007/JPEGImages/",idx+".jpg")
     dst = os.path.join("/media/ssd1/cityscape/VOC2007/source_test/",idx + ".jpg")
-    shutil.copyfile(src,dst)
+    shutil.copy(src,dst)
